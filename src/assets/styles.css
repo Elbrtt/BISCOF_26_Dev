@@ -133,7 +133,7 @@ strong { color: var(--paper); font-weight: 600; }
 .lede {
   font-size: clamp(18px, 1.35vw, 21px);
   color: #ded9d1;
-  max-width: 62ch;
+  max-width: min(80ch,100%);
 }
 
 /* ---------- kerb: the divider device, from the track edge ---------- */

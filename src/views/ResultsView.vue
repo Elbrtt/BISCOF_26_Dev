@@ -50,32 +50,34 @@ import { results, findings } from '../data/paper'
 
     <section class="rings">
       <h3 v-reveal>Completion reliability</h3>
-      <div class="rings__pair">
-        <CompletionRing
-          v-reveal
-          :percent="results.ppo.completion"
-          :completed="results.ppo.completed"
-          :failed="results.ppo.failed"
-          label="PPO"
-          tone="ppo"
-          sub="Twenty of the first twenty episodes finished, with no failures at all."
-        />
-        <CompletionRing
-          v-reveal="140"
-          :percent="results.bc.completion"
-          :completed="results.bc.completed"
-          :failed="results.bc.failed"
-          label="BC"
-          tone="bc"
-          sub="Failures cluster in the first eighty episodes, then taper off."
-        />
+      <div class="rings__body">
+        <div class="rings__pair">
+          <CompletionRing
+            v-reveal
+            :percent="results.ppo.completion"
+            :completed="results.ppo.completed"
+            :failed="results.ppo.failed"
+            label="PPO"
+            tone="ppo"
+            sub="Twenty of the first twenty episodes finished, with no failures at all."
+          />
+          <CompletionRing
+            v-reveal="140"
+            :percent="results.bc.completion"
+            :completed="results.bc.completed"
+            :failed="results.bc.failed"
+            label="BC"
+            tone="bc"
+            sub="Failures cluster in the first eighty episodes, then taper off."
+          />
+        </div>
+        <p class="rings__note" v-reveal="200">
+          Thirteen percentage points separate them. BC’s failures are covariate shift in plain
+          sight: when the car reaches a state the ten demonstration laps never covered, the policy
+          has no recovery behaviour to fall back on. PPO met those states during training and was
+          paid to get out of them.
+        </p>
       </div>
-      <p class="rings__note" v-reveal="200">
-        Thirteen percentage points separate them. BC’s failures are covariate shift in plain sight:
-        when the car reaches a state the ten demonstration laps never covered, the policy has no
-        recovery behaviour to fall back on. PPO met those states during training and was paid to
-        get out of them.
-      </p>
     </section>
 
     <section class="chart" v-reveal>
@@ -138,14 +140,20 @@ import { results, findings } from '../data/paper'
 .rings { margin: clamp(48px, 7vh, 88px) 0; }
 .rings h3 { margin-bottom: 26px; }
 
+.rings__body {
+  display: grid;
+  grid-template-columns: minmax(0, 480px) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
+}
+
 .rings__pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(24px, 4vw, 60px);
-  max-width: 820px;
+  gap: clamp(20px, 2.4vw, 40px);
 }
 
-.rings__note { margin-top: 30px; }
+.rings__note { margin: 0; max-width: 72ch; font-size: 1.25rem}
 
 .chart { margin: clamp(44px, 6vh, 78px) 0; }
 .chart h3 { margin-bottom: 20px; }
@@ -194,8 +202,13 @@ import { results, findings } from '../data/paper'
 
 @media (max-width: 1000px) {
   .readout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .rings__pair,
+  .rings__body { grid-template-columns: minmax(0, 1fr); }
+  .rings__note { max-width: none; }
   .ttest,
   .findings__grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .rings__pair { grid-template-columns: minmax(0, 1fr); max-width: 260px; margin-inline: auto; }
 }
 </style>

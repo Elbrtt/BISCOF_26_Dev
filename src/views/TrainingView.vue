@@ -39,17 +39,20 @@ import HudStat from '../components/HudStat.vue'
     />
 
     <section class="loops">
-      <div class="loops__one" v-reveal>
-        <TrackLoop :cars="8" :speed="1.1" />
-        <HudStat :value="8" label="Agents exploring in parallel" tone="ppo" />
+      <div class="loops__pair">
+        <div class="loops__one" v-reveal>
+          <TrackLoop :cars="8" :speed="1.1" />
+          <HudStat :value="8" label="Agents exploring in parallel" tone="ppo" />
+        </div>
+        <div class="loops__one" v-reveal="120">
+          <TrackLoop :cars="1" :speed="0.95" color="var(--bc)" :jitter="false" />
+          <HudStat :value="10" label="Human demonstration laps" tone="bc" />
+        </div>
       </div>
-      <div class="loops__one" v-reveal="120">
-        <TrackLoop :cars="1" :speed="0.95" color="var(--bc)" :jitter="false" />
-        <HudStat :value="10" label="Human demonstration laps" tone="bc" />
-      </div>
-      <p class="loops__note meta">
+      <p class="loops__note meta" v-reveal="180">
         Parallelism is PPO’s advantage and its cost: more exploration per wall-clock minute, but no
-        expert to copy. BC gets a perfect teacher and one point of view.
+        expert to copy. BC gets a perfect teacher and one point of view, but the agent quality
+        depends on the teacher.
       </p>
     </section>
 
@@ -91,16 +94,21 @@ import HudStat from '../components/HudStat.vue'
 <style scoped>
 .loops {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(24px, 4vw, 70px);
-  align-items: start;
+  grid-template-columns: minmax(0, 460px) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 72px);
+  align-items: center;
   margin: clamp(48px, 7vh, 90px) 0;
-  max-width: 940px;
+}
+
+.loops__pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(20px, 2.6vw, 44px);
 }
 
 .loops__one { display: grid; gap: 22px; justify-items: center; text-align: center; }
-.loops__one svg { max-width: 300px; }
-.loops__note { grid-column: 1 / -1; max-width: 62ch; }
+.loops__one svg { max-width: 320px; }
+.loops__note { margin: 0; max-width: 80ch; font-size: 1.25rem;}
 
 .engine {
   display: grid;
@@ -109,11 +117,22 @@ import HudStat from '../components/HudStat.vue'
   align-items: start;
 }
 
-.engine__figs { display: grid; gap: clamp(20px, 2.4vw, 32px); }
+.engine__text { align-self: center; }
+
+.engine__figs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(20px, 2.4vw, 32px); }
 .engine__figs .frame { background: #0e0f11; }
 
+@media (max-width: 1150px) {
+  .engine__figs { grid-template-columns: minmax(0, 1fr); }
+}
+
 @media (max-width: 1000px) {
-  .loops,
+  .loops { grid-template-columns: minmax(0, 1fr); }
+  .loops__note { max-width: none; }
   .engine { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (max-width: 560px) {
+  .loops__pair { grid-template-columns: minmax(0, 1fr); max-width: 240px; margin-inline: auto; }
 }
 </style>

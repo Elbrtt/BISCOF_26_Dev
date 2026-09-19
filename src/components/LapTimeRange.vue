@@ -113,4 +113,13 @@ const ticks = [9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
   from { transform: scaleX(0.02); opacity: 0; }
   to { transform: scaleX(1); }
 }
+
+figcaption {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+  color: var(--dim);
+  padding: 10px 2px 0;
+  max-width: 200ch;
+}
 </style>

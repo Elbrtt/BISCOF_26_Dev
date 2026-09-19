@@ -101,4 +101,14 @@ const ticks = [9, 10, 11, 12, 13]
 .dist__key { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; letter-spacing: 0.04em; }
 .dist__key--ppo { fill: var(--kerb); }
 .dist__key--bc { fill: var(--bc); }
+
+figcaption {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+  color: var(--dim);
+  padding: 10px 2px 0;
+  max-width: 200ch;
+}
+
 </style>

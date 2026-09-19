@@ -74,4 +74,13 @@ const y = (v) => H - 44 - ((v - lo) / (hi - lo)) * (H - 44 - 26)
 .band__axis { font-family: 'Barlow Condensed', sans-serif; font-size: 15px; fill: var(--dim); }
 .band__axis--mid { fill: #fff; }
 .band__note { font-family: 'Barlow Condensed', sans-serif; font-size: 16px; fill: var(--bone); }
+
+figcaption {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 17px;
+  letter-spacing: 0.03em;
+  color: var(--dim);
+  padding: 10px 2px 0;
+  max-width: 200ch;
+}
 </style>
